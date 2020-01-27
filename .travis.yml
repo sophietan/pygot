@@ -8,3 +8,5 @@ install:
 script:
   - pytest
   - pylint pygot tests
+after_success:
+  - coverage report
