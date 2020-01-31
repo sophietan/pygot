@@ -42,35 +42,11 @@ strategy:
       versionSpec: '3.8'
       vmImage: windows-latest
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: $(versionSpec)
-  displayName: python$(versionSpec)
+jobs:
+- job: A
+  steps:
+  - bash: echo "A"
 
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: pip
-
-- script: pytest
-  displayName: pytest $(testsName)
-
-- script: pycodestyle $(moduleName) $(testsName)
-  displayName: pycodestyle
-
-- script: pydocstyle $(moduleName) $(testsName)
-  displayName: pydocstyle
-
-- script: pylint --rcfile=setup.cfg $(moduleName) $(testsName)
-  displayName: pylint
-
-- script: codecov
-  displayName: codecov
-  env:
-    CODECOV_TOKEN: $(CODECOV_TOKEN)
-
-- script: python-codacy-coverage -r coverage.xml
-  displayName: python-codacy-coverage
-  env:
-    CODACY_PROJECT_TOKEN: $(CODACY_PROJECT_TOKEN)
+- job: B
+  steps:
+  - bash: echo "B"
